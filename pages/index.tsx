@@ -33,17 +33,7 @@ export default function Index() {
 
   return (
     <DayView>
-      <DayGrid>
-        {events.map((event) => (
-          <div key={event.id}>
-            <div>{event.title}</div>
-            <div>
-              {event.start} - {event.end}
-            </div>
-            <hr />
-          </div>
-        ))}
-      </DayGrid>
+      <DayGrid events={events} />
     </DayView>
   );
 }

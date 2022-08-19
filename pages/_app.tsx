@@ -6,7 +6,7 @@ import Head from 'next/head';
 const theme: DefaultTheme = {
   colors: {
     primary: '#111',
-    secondary: '#416ea7',
+    secondary: '#739abe',
   },
 };
 

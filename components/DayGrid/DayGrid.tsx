@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import addMinutes from 'date-fns/addMinutes';
 import format from 'date-fns/format';
 
+import { EventType } from 'types/event';
+import { Event } from 'components/Event';
+
 const Timelines = styled.div`
   padding-top: 16px;
 `;
@@ -39,16 +42,42 @@ const Tile = styled.div`
   }
 `;
 
-type DayGridProps = {
-  children: React.ReactNode;
-};
+const GridCellContainer = styled.div`
+  position: relative;
+  padding: 0 12px;
+  box-sizing: border-box;
+  flex: 1 0 auto;
+  width: 129px;
+  min-width: 129px;
+  border-right: white 1px solid;
+  overflow: visible;
+`;
+const GridCell = styled.div`
+  grid-column-gap: 3px;
+  z-index: 2;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(96, 10px);
+`;
+const Cell = styled.div`
+  z-index: 2;
+  border-radius: 5px;
+  padding: 0 4px;
+  margin: 1px 0;
+`;
 
 const timelines = Array.from({ length: 24 }, (v, i) => i * 60);
 const startOfDay = new Date(
   new Date(0).valueOf() + new Date(0).getTimezoneOffset() * 60 * 1000
 );
 
-export const DayGrid = ({ children }: DayGridProps) => {
+type DayGridProps = {
+  events: EventType[];
+};
+
+export const DayGrid = ({ events }: DayGridProps) => {
   return (
     <>
       <Timelines>
@@ -64,8 +93,23 @@ export const DayGrid = ({ children }: DayGridProps) => {
             <Tile key={`tile-${timelineValue}`} />
           ))}
         </GridTiles>
+        <GridCellContainer>
+          <GridCell>
+            {events.map(({ id, start, end, title }) => {
+              const startGridRow = start === 0 ? 1 : Math.ceil(start / 15) + 1;
+              const endGridRow = Math.ceil(end / 15) + 1;
+              return (
+                <Cell
+                  key={id}
+                  style={{ gridRow: `${startGridRow} / ${endGridRow}` }}
+                >
+                  <Event start={start} end={end} title={title} />
+                </Cell>
+              );
+            })}
+          </GridCell>
+        </GridCellContainer>
       </Grid>
-      <div>{children}</div>
     </>
   );
 };
