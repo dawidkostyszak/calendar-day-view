@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import styled from 'styled-components';
 
 const fetcher = (query: string) =>
   fetch('/api/graphql', {
@@ -10,6 +11,10 @@ const fetcher = (query: string) =>
   })
     .then((res) => res.json())
     .then((json) => json.data);
+
+const DayView = styled.div`
+  font-size: 16px;
+`
 
 export default function Index() {
   const { data, error } = useSWR(
@@ -23,7 +28,7 @@ export default function Index() {
   const { events } = data;
 
   return (
-    <div>
+    <DayView>
       {events.map((event) => (
         <>
           <div>{event.title}</div>
@@ -33,6 +38,6 @@ export default function Index() {
           <hr />
         </>
       ))}
-    </div>
+    </DayView>
   );
 }
