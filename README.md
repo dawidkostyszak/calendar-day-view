@@ -1,54 +1,25 @@
-# Pace gets organised 📅
-
-Thank you for taking the time to interview with Pace! We have a coding exercise we would like you to do to show us your skills, and give us something to talk about in our technical interview.
-
-## Expectations
-
-The exercise was designed to be solvable in an afternoon, yet a robust and comprehensive solution could take much longer. Rather than building a complete solution, please constrain yourself to around **three hours**, and use a shortup writeup to mention anything not achieved or any known limitations.
-
-## Requirements
-
-![Example](./example.png)
-
-We would like to build a simple day view for a calendar, populated with data from a graphql API. The API returns a list of events which have a start and end time in minutes since midnight. So 9am is 540 minutes, 9.30 is 570 minutes and so on.
-
-When rendering the calendar:
-
-- Events should be shown without any overlapping
-- If multiple events collide, then they should have equal width
-- Styling can be kept extremely simple
-- We only need to display the events
-
-Your submission should also be reflective of how you would write production quality code, but don't fret if you run out of time - we aren't expecting polished solutions.
-
 ## Writeup
 
-Written communication and thoughtful self-reflection is an important part of our work. This is an opportunity for you to tell us a bit more about the work you did. The writeup shouldn’t be long, but we will use it as part of the evaluation and discuss it in subsequent interview, so you should spend a bit of time and focus on it.
-
-Here are some example questions your writeup could address:
-
 - What choices did you make and why?
+  - I choose to use css grid for showing calendar events as it gives the best functionality to position it.
+  - I have used `date-fns` library for date manipulations and format, as it's light-weight and gives possibility for code splitting.
+  - I added eslint and preetier for code analyzing and formatting, it's reducing time spent on paying attention to simple formatting things, so can focus on a problem-solving rather than how I write a code.
 - What challenges did you face?
+  - One of challenge was to correctly show times as application could be used across multiple timezones, so for now I just used GMT timezone to format times.
+  - The other challenge was to only change width of event card when it's collapsing with other event, I spent a couple of minutes playing with css and didn't find solution for that.
 - What tradeoffs did you choose?
+  - One of tradeoffs was not to add tests, there were no logic in code to test, so I decided to not add them as they would only check visual part of application. I thought to use snapshot tests for it but to add them and configure would need a bit more time to do it.
+  - The other tradeoff was about styling for mobile version of app. Events aren't wrapping well for mobile devices, and if title of event would be longer it can break look of a card.
 - What do you like and not like about your solution?
+  - My solution is very simple and use css and html elements structure to solve the problem.
+  - I see some places where I could improve the solution as it brakes for mobile. Some of a styling could be improved, but I didn't pay too much attention to it.
+  - I would definitely add tests as they give confidence and stability of the app.
 - What areas would you work on next?
+  - I would improve functionality of this app.
+  - The next step would probably be to add details view of the event.
+  - Other step would be to add edit mode of the event.
 
-We love feedback. If there’s anything you think could be improved with this exercise, please share your thoughts in the writeup, too.
-
-## Technologies
-
-We've gotten you started using a [next.js](https://nextjs.org/) boilerplate including sample data. If you're not familar with the framework then no problem, we don't use any of its additional features here or require server-side rendering. To complete the requirements:
-
-- You may use any open source, publicly available third party libraries or components you would like **except calendar components like [fullcalendar](https://fullcalendar.io/)**.
-- You may use any testing framework or approach you prefer, or not write tests at all.
-
-## Deliverables
-
-We expect you to deliver:
-
-1. Source code of a web app that fulfils, as far as possible, the above requirements and uses the specified technologies, delivered in form of a Git repository. The Repository can be public or private, on GitHub, GitLab or BitBucket, CodeSandboxed, or zipped and emailed to us.
-2. A short writeup of your work in form of a Markdown readme in the project.
-
-Good Luck and have fun!
-
-Once completed, please email your solution to ben@pacerevenue.com. If you have any questions, please let us know!
+## Feedback
+- Task looks very simple but there are some areas to think about how to solve it.
+- It isn't trivial case where events could collapse and need to calculate width of cards.
+- I would recommend to set up eslint and prettier by default to the task as it gives some extra time to thinking about solution and coding.
