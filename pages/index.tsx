@@ -1,6 +1,8 @@
 import useSWR from 'swr';
 import styled from 'styled-components';
 
+import { DayGrid } from 'components/DayGrid';
+
 const fetcher = (query: string) =>
   fetch('/api/graphql', {
     method: 'POST',
@@ -13,8 +15,10 @@ const fetcher = (query: string) =>
     .then((json) => json.data);
 
 const DayView = styled.div`
-  font-size: 16px;
-`
+  position: relative;
+  display: flex;
+  padding: 0 32px;
+`;
 
 export default function Index() {
   const { data, error } = useSWR(
@@ -29,15 +33,17 @@ export default function Index() {
 
   return (
     <DayView>
-      {events.map((event) => (
-        <>
-          <div>{event.title}</div>
-          <div>
-            {event.start} - {event.end}
+      <DayGrid>
+        {events.map((event) => (
+          <div key={event.id}>
+            <div>{event.title}</div>
+            <div>
+              {event.start} - {event.end}
+            </div>
+            <hr />
           </div>
-          <hr />
-        </>
-      ))}
+        ))}
+      </DayGrid>
     </DayView>
   );
 }
